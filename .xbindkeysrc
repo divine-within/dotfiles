@@ -1,0 +1,32 @@
+# Increase volume
+"sh -c 'pactl set-sink-mute 0 false ; pactl set-sink-volume 0 +5%'"
+   XF86AudioRaiseVolume
+
+# Decrease volume
+"sh -c 'pactl set-sink-mute 0 false ; pactl set-sink-volume 0 -5%'"
+   XF86AudioLowerVolume
+
+# Mute volume
+"pactl set-sink-mute 0 toggle"
+   XF86AudioMute
+
+# Mute microphone
+"pactl set-source-mute 1 toggle"
+   XF86AudioMicMute
+
+# Increase brightness
+"changeBrightness up"
+   XF86MonBrightnessUp
+
+# Decrease brightness
+"changeBrightness down"
+   XF86MonBrightnessDown
+
+# Screenshot
+"flameshot gui"
+   Print
+
+# Lock the screen
+#"dm-tool lock"
+#   0xffeb - windows key too.
+

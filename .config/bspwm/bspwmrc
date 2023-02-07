@@ -1,0 +1,21 @@
+#! /bin/sh
+
+# Autostart
+pgrep -x sxhkd > /dev/null || sxhkd &
+xbindkeys --poll-rc &
+picom &
+wal -R &
+feh --bg-fill $HOME/.config/wallpapers/wallpaper.jpg &
+~/.config/polybar/forest/launch.sh 
+
+
+bspc monitor -d 1 2 3 4 5
+
+bspc config border_width	1
+bspc config window_gap		4
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+wmname LG3D
