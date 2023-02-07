@@ -24,6 +24,9 @@ set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
 
+# Go
+set -gx PATH /usr/local/go/bin $PATH
+
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
 
