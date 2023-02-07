@@ -57,6 +57,7 @@ return function(use)
 
     use {
         "hrsh7th/nvim-cmp",
+        requires = "L3MON4D3/LuaSnip",
         config = function()
             local cmp = require("cmp")
             local lspkind = require("lspkind")
