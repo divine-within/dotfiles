@@ -25,7 +25,6 @@ return {
     }),
     s({ trig = 'st', dscr = 'Struct snippet' }, {
         t('type'),
-
-
+        t('test'),
     })
 }
