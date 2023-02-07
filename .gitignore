@@ -1,0 +1,9 @@
+# Bare git directory
+.dotfiles
+
+# Fish shell
+.config/fish/fish_variables
+
+# Nvim
+.config/nvim/plugin/
+.config/nvim/lua/undodir/
