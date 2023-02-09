@@ -6,4 +6,4 @@
 
 # Nvim
 .config/nvim/plugin/
-.config/nvim/lua/undodir/
+.config/nvim/undodir/
