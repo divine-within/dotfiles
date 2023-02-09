@@ -28,11 +28,3 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'BufNew', 'BufNewFile', 'Buf
         vim.opt.foldexpr   = 'nvim_treesitter#foldexpr()'
     end
 })
-
--- Recompile packer anytime file is changed
-local packerGroup = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', {
-    pattern = 'lua/plugins/*._active.lua, lua/snippets/*.lua',
-    command = 'source <afile> | PackerCompile',
-    group = packerGroup
-})

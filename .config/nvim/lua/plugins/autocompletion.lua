@@ -1,5 +1,5 @@
-return function(use)
-    use { "onsails/lspkind-nvim",
+return {
+    { "onsails/lspkind-nvim",
         config = function()
             local lspkind = require("lspkind")
 
@@ -13,14 +13,12 @@ return function(use)
                 -- default: symbol
                 -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
                 mode = 'symbol_text',
-
                 -- default symbol map
                 -- can be either 'default' (requires nerd-fonts font) or
                 -- 'codicons' for codicon preset (requires vscode-codicons font)
                 --
                 -- default: 'default'
                 preset = 'codicons',
-
                 -- override preset symbols
                 --
                 -- default: {}
@@ -53,11 +51,11 @@ return function(use)
                 },
             })
         end
-    }
+    },
 
-    use {
+    {
         "hrsh7th/nvim-cmp",
-        requires = "L3MON4D3/LuaSnip",
+        dependencies = "L3MON4D3/LuaSnip",
         config = function()
             local cmp = require("cmp")
             local lspkind = require("lspkind")
@@ -85,7 +83,7 @@ return function(use)
                     ["<Down>"] = cmp.mapping.select_next_item(),
                     ["<Left>"] = cmp.mapping.select_prev_item(),
                     ["<Right>"] = cmp.mapping.select_next_item(),
-                    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                    ["<C-b>"] = cmp.mapping.scroll_docs( -4),
                     ["<C-f>"] = cmp.mapping.scroll_docs(4),
                     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
                     ["<C-e>"] = cmp.mapping.close(),
@@ -109,8 +107,8 @@ return function(use)
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item()
-                        elseif luasnip.jumpable(-1) then
-                            luasnip.jump(-1)
+                        elseif luasnip.jumpable( -1) then
+                            luasnip.jump( -1)
                         else
                             fallback()
                         end
@@ -145,17 +143,18 @@ return function(use)
                 }
             })
         end
-    }
+    },
 
-    use "hrsh7th/cmp-buffer"
-    use "hrsh7th/cmp-cmdline"
-    use "hrsh7th/cmp-nvim-lua"
-    use "hrsh7th/cmp-nvim-lsp"
-    use "hrsh7th/cmp-nvim-lsp-signature-help"
-    use "hrsh7th/cmp-path"
-    use {
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-cmdline",
+    "hrsh7th/cmp-nvim-lua",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-nvim-lsp-signature-help",
+    "hrsh7th/cmp-path",
+    {
         "L3MON4D3/LuaSnip",
-        requires = { "saadparwaiz1/cmp_luasnip" },
+        lazy = true,
+        dependencies = { "saadparwaiz1/cmp_luasnip" },
         config = function()
             local ls = require('luasnip')
             local types = require('luasnip.util.types')
@@ -164,7 +163,6 @@ return function(use)
                 history = true,
                 updateevents = "TextChanged, TextChangedI",
                 autosnippets = true,
-
                 ext_opts = {
                     [types.choiceNode] = {
                         active = {
@@ -173,10 +171,7 @@ return function(use)
                     }
                 }
             })
-            -- Hot reload snippets keymap
-            vim.keymap.set('n', '<leader><leader>s',
-                '<cmd>source ~/.config/nvim/lua/plugins/autocomplete_active.lua | PackerCompile<CR>')
+            require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/snippets" })
         end,
-        require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/snippets" })
-    }
-end
+    },
+}
