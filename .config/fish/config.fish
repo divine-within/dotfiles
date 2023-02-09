@@ -25,10 +25,17 @@ set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
 
 # Go
+set -gx GOPATH ~/go
 set -gx PATH /usr/local/go/bin $PATH
+set -gx PATH $GOPATH/bin $PATH
 
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
+
+# Language servers
+
+# Lua
+set -gx PATH ~/.config/lsp/lua-language-server/bin $PATH
 
 #Pywal on shell startup
 if type -q wal
