@@ -43,47 +43,25 @@ return {
                     },
                 },
             })
+
+            lspconfig.pyright.setup({})
+            lspconfig.tsserver.setup({})
+            lspconfig.lua_ls.setup({})
+            lspconfig.yamlls.setup({})
+            lspconfig.marksman.setup({})
+            lspconfig.eslint.setup({})
         end
     },
 
-    { "williamboman/mason.nvim" },
+    { "williamboman/mason.nvim",
+        config = true,
+    },
+
     { "Afourcat/treesitter-terraform-doc.nvim" },
     { "williamboman/mason-lspconfig.nvim",
         lazy = true,
         dependencies = { "williamboman/mason.nvim" },
-        config = function()
-            local mason_lspconfig = require("mason-lspconfig")
-
-            mason_lspconfig.setup({
-                PATH = "prepend",
-                ensure_installed = {
-                    "eslint",
-                    "gopls", -- WARNING: This could be an issue with goenv switching.
-                    "marksman",
-                    "rust_analyzer",
-                    "lua_ls",
-                    "terraformls",
-                    "tflint",
-                    "tsserver",
-                    "yamlls",
-                }
-            })
-
-            mason_lspconfig.setup_handlers({
-                function(server_name)
-                    require("lspconfig")[server_name].setup({
-                        on_attach = function(client, bufnr)
-                            require("settings/shared").on_attach(client, bufnr)
-                            require("illuminate").on_attach(client)
-
-                            if server_name == "terraformls" then
-                                require("treesitter-terraform-doc").setup()
-                            end
-                        end
-                    })
-                end
-            })
-        end
+        config = true,
     },
 
     { "simrat39/symbols-outline.nvim",

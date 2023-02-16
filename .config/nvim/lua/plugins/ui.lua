@@ -28,7 +28,7 @@ return {
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {
             options = {
-                mode = "buffers",
+                mode = "tabs",
                 indicator = { style = "underline" },
                 tab_size = 15,
                 offsets = {
