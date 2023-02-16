@@ -70,4 +70,11 @@ return {
             highlight = true,
         }
     },
+
+    -- Debugging
+    { "rcarriga/nvim-dap-ui",
+        lazy = true,
+        dependencies = { "mfussenegger/nvim-dap" },
+        config = true,
+    },
 }
