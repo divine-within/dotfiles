@@ -49,13 +49,33 @@ return {
                 integrations = {
                     cmp = true,
                     gitsigns = true,
-                    nvimtree = true,
+                    neotree = true,
                     telescope = true,
                     treesitter = true,
+                    mason = true,
                     navic = {
                         enabled = true,
                         custom_bg = "NONE"
-                    }
+                    },
+                    native_lsp = {
+                        enabled = true,
+                        virtual_text = {
+                            errors = { "italic" },
+                            hints = { "italic" },
+                            warnings = { "italic" },
+                            information = { "italic" },
+                        },
+                        underlines = {
+                            errors = { "underline" },
+                            hints = { "underline" },
+                            warnings = { "underline" },
+                            information = { "underline" },
+                        },
+                    },
+                    dap = {
+                        enabled = true,
+                        enable_ui = true, -- enable nvim-dap-ui
+                    },
                     -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
                 },
             })

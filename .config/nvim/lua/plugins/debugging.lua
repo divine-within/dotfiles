@@ -29,6 +29,12 @@ return {
             vim.keymap.set('n', '<Leader>dr', function() dap.repl.open() end)
             vim.keymap.set('n', '<Leader>dl', function() dap.run_last() end)
             vim.keymap.set('n', '<Leader>dt', function() require('dap-go').debug_test() end)
+
+            local sign = vim.fn.sign_define
+
+            sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = ""})
+            sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = ""})
+            sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = ""})
         end,
     },
 }
