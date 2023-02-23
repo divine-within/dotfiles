@@ -4,7 +4,7 @@ To see what an option is set to execute :lua = vim.o.<name>
 
 vim.o.backup = false
 vim.o.swapfile = false
-vim.o.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
+vim.o.undodir = vim.fn.stdpath('config') .. "/undodir"
 vim.o.undofile = true
 
 vim.o.hlsearch = false
