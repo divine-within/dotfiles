@@ -1,67 +1,65 @@
 return {
     { "lvimuser/lsp-inlayhints.nvim" },
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = { "lvimuser/lsp-inlayhints.nvim" },
-        config = function()
-            local lspconfig = require("lspconfig")
-
-            lspconfig.gopls.setup({
-                on_attach = function(client, bufnr)
-                    require("settings/shared").on_attach(client, bufnr)
-                    require("lsp-inlayhints").setup({
-                        inlay_hints = {
-                            type_hints = {
-                                prefix = "=> "
-                            },
-                        },
-                    })
-                    require("lsp-inlayhints").on_attach(client, bufnr)
-                    require("illuminate").on_attach(client)
-                end,
-                settings = {
-                    gopls = {
-                        analyses = {
-                            nilness = true,
-                            unusedparams = true,
-                            unusedwrite = true,
-                            useany = true,
-                        },
-                        experimentalPostfixCompletions = true,
-                        gofumpt = true,
-                        staticcheck = true,
-                        usePlaceholders = true,
-                        hints = {
-                            assignVariableTypes = true,
-                            compositeLiteralFields = true,
-                            compositeLiteralTypes = true,
-                            constantValues = true,
-                            functionTypeParameters = true,
-                            parameterNames = true,
-                            rangeVariableTypes = true,
-                        }
-                    },
-                },
-            })
-
-            lspconfig.pyright.setup({})
-            lspconfig.tsserver.setup({})
-            lspconfig.lua_ls.setup({})
-            lspconfig.yamlls.setup({})
-            lspconfig.marksman.setup({})
-            lspconfig.eslint.setup({})
-        end
-    },
-
+    { "neovim/nvim-lspconfig" },
     { "williamboman/mason.nvim",
         config = true,
     },
 
     { "Afourcat/treesitter-terraform-doc.nvim" },
     { "williamboman/mason-lspconfig.nvim",
-        lazy = true,
-        dependencies = { "williamboman/mason.nvim" },
-        config = true,
+        dependencies = { "williamboman/mason.nvim", "lvimuser/lsp-inlayhints.nvim" },
+        config = function()
+            local lspconfig = require("lspconfig")
+            require("mason-lspconfig").setup_handlers {
+
+                -- Automatic server handler setup function
+                function (server_name)
+                    lspconfig[server_name].setup {}
+                end,
+
+                -- Next, you can provide a dedicated handler for specific servers.
+                -- For example, a handler override for the `gopls`:
+                ["gopls"] = function ()
+                    lspconfig.gopls.setup({
+                        on_attach = function(client, bufnr)
+                            require("settings/shared").on_attach(client, bufnr)
+                            require("lsp-inlayhints").setup({
+                                inlay_hints = {
+                                    type_hints = {
+                                        prefix = "=> "
+                                    },
+                                },
+                            })
+                            require("lsp-inlayhints").on_attach(client, bufnr)
+                            require("illuminate").on_attach(client)
+                        end,
+                        settings = {
+                            gopls = {
+                                analyses = {
+                                    nilness = true,
+                                    unusedparams = true,
+                                    unusedwrite = true,
+                                    useany = true,
+                                },
+                                experimentalPostfixCompletions = true,
+                                gofumpt = true,
+                                staticcheck = true,
+                                usePlaceholders = true,
+                                hints = {
+                                    assignVariableTypes = true,
+                                    compositeLiteralFields = true,
+                                    compositeLiteralTypes = true,
+                                    constantValues = true,
+                                    functionTypeParameters = true,
+                                    parameterNames = true,
+                                    rangeVariableTypes = true,
+                                }
+                            },
+                        },
+                    })
+                end
+            }
+        end
     },
 
     { "simrat39/symbols-outline.nvim",
@@ -102,13 +100,60 @@ return {
         }
     },
 
-    { "mfussenegger/nvim-lint",
+    { "jose-elias-alvarez/null-ls.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
-            local lint = require("lint")
-            lint.linters_by_ft = {
-                go = { "golangcilint" }, -- ~/.golangci.yml
-            }
-            -- see ./lsp.lua for calls to this plugin's try_lint() function.
-        end
+            local null_ls = require("null-ls")
+
+            local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+            null_ls.setup({
+                sources = {
+                    -- JavaScript, Typescript, etc.
+                    null_ls.builtins.formatting.prettierd,
+                    null_ls.builtins.diagnostics.eslint_d.with({
+                        diagnostics_format = '[eslint] #{m}\n(#{c})'
+                    }),
+
+                    -- Python
+                    null_ls.builtins.formatting.black,
+                    null_ls.builtins.diagnostics.flake8,
+
+                    -- Go
+                    null_ls.builtins.formatting.gofmt,
+                    null_ls.builtins.diagnostics.golangci_lint,
+                },
+                on_attach = function(client, bufnr)
+                    if client.supports_method("textDocument/formatting") then
+                        vim.api.nvim_buf_create_user_command(bufnr, "LspFormatting", function()
+                            -- or vim.lsp.buf.formatting(bufnr) on 0.8
+                            vim.lsp.buf.format({ bufnr = bufnr })
+                        end, {})
+
+                        -- you can leave this out if your on_attach is unique to null-ls,
+                        -- but if you share it with multiple servers, you'll want to keep it
+                        vim.api.nvim_clear_autocmds({
+                            group = augroup,
+                            buffer = bufnr,
+                        })
+
+                        vim.api.nvim_create_autocmd("BufWritePre", {
+                            group = augroup,
+                            buffer = bufnr,
+                            command = "undojoin | LspFormatting",
+                        })
+                    end
+                end,
+                },
+
+                vim.api.nvim_create_user_command(
+                  'DisableLspFormatting',
+                  function()
+                    vim.api.nvim_clear_autocmds({ group = augroup, buffer = 0 })
+                  end,
+                  { nargs = 0 }
+                )
+            )
+        end,
     },
 }
