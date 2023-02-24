@@ -14,6 +14,3 @@ vim.keymap.set('n', '<C-a>', 'gg<S-v>G')
 
 -- Clear search highlighting
 vim.keymap.set('n', 'cs', [[<Cmd>nohl<CR>]])
-
--- Resource snippets
-vim.keymap.set("n", "<leader><leader>s", "<cmd>source ~/.config/nvim/lua/plugins/autocompletion.lua<CR>")
