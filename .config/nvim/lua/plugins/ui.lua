@@ -127,4 +127,12 @@ return {
               },
             }
     },
+
+    { "lukas-reineke/indent-blankline.nvim",
+        opts = {
+            indent_blankline_use_treesitter = true,
+            show_end_of_line = false,
+            show_current_context = true,
+        }
+    },
 }

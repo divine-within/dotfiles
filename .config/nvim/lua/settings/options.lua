@@ -2,6 +2,9 @@
 To see what an option is set to execute :lua = vim.o.<name>
 --]]
 
+vim.opt.list = true
+vim.opt.listchars:append "space:⋅"
+
 vim.o.backup = false
 vim.o.swapfile = false
 vim.o.undodir = vim.fn.stdpath('config') .. "/undodir"
