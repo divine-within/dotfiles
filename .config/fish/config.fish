@@ -1,3 +1,8 @@
+if status is-interactive
+and not set -q TMUX
+    exec tmux new-session -A -s main
+end
+
 set fish_greeting ""
 
 set -gx TERM xterm-256color

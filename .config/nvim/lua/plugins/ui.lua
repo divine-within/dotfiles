@@ -25,6 +25,11 @@ return {
         config = true,
     },
 
+    -- Hex code colorizer
+    { 'norcalli/nvim-colorizer.lua',
+        config = true,
+    },
+
     -- tab ui improvments
     { "akinsho/bufferline.nvim",
         version = "v3.*",
