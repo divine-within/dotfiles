@@ -7,6 +7,22 @@ return {
             "MunifTanjim/nui.nvim",
         },
         config = function()
+            require("neo-tree").setup({
+                window = {
+                    width = 30,
+                },
+                filesystem = {
+                    filtered_items = {
+                        hide_dotfiles = false,
+                        hide_gitignored = true,
+                        hide_by_name = {
+                            "node_modules"
+                        },
+                    },
+                    hijack_netrw_behavior = "open_current",
+                },
+            })
+
             vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
             vim.fn.sign_define("DiagnosticSignError",
@@ -26,21 +42,6 @@ return {
             vim.cmd(":command! Ex Neotree toggle current reveal_force_cwd")
             vim.cmd(":command! Sex sp | Neotree toggle current reveal_force_cwd")
         end,
-        opts = {
-            window = {
-                width = 25,
-            },
-            filesystem = {
-                filtered_items = {
-                    hide_dotfiles = false,
-                    hide_gitignored = true,
-                    hide_by_name = {
-                        "node_modules"
-                    },
-                },
-                hijack_netrw_behavior = "open_current",
-            },
-        }
     },
 
     'christoomey/vim-tmux-navigator',
