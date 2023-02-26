@@ -1,8 +1,3 @@
-if status is-interactive
-and not set -q TMUX
-    exec tmux new-session -A -s main
-end
-
 set fish_greeting ""
 
 set -gx TERM xterm-256color
@@ -57,5 +52,10 @@ if [ (uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/ip') ];
     if service docker status 2>&1 | grep -q "is not running"; 
         wsl.exe -u root -e /usr/sbin/service docker start >/dev/null 2>&1
     end
+end
+
+if status is-interactive
+and not set -q TMUX
+    exec tmux new-session -A -s main
 end
 
