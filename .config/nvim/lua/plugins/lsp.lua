@@ -19,6 +19,18 @@ return {
 
                 -- Next, you can provide a dedicated handler for specific servers.
                 -- For example, a handler override for the `gopls`:
+                ["pyright"] = function()
+                    lspconfig.pyright.setup({
+                        settings = {
+                            python = {
+                                analysis = {
+                                    typeCheckingMode = "off",
+                                },
+                            },
+                        },
+                    })
+                end,
+
                 ["gopls"] = function ()
                     lspconfig.gopls.setup({
                         on_attach = function(client, bufnr)
@@ -212,7 +224,6 @@ return {
 
                     -- Python
                     null_ls.builtins.formatting.black,
-                    null_ls.builtins.diagnostics.flake8,
 
                     -- Go
                     null_ls.builtins.formatting.gofmt,
