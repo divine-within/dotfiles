@@ -49,7 +49,7 @@ vim.o.wrap = false
 vim.o.mouse = false
 
 -- Treesitter folding
-vim.o.foldlevel = 1
+vim.o.foldlevel = 3
 
 if vim.fn.has("termguicolors") == 1 then
     vim.o.termguicolors = true --termgui colors
