@@ -2,10 +2,8 @@ return {
     -- Treesitter
     {
         'nvim-treesitter/nvim-treesitter',
-        build = function()
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
-        end,
+        build = ":TSUpdate",
+        event = "BufReadPost",
         config = function()
             require('nvim-treesitter.configs').setup {
                 -- A list of parser names, or "all"
@@ -26,6 +24,7 @@ return {
                     "gowork",
                     "dockerfile",
                     "markdown",
+                    "markdown_inline",
                 },
 
                 -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -55,16 +54,21 @@ return {
     -- word usage highlighter
     { "RRethy/vim-illuminate",
         config = function()
-            -- vim.cmd("highlight illuminatedWord guifg=red guibg=white")
-            -- vim.api.nvim_command [[ highlight LspReferenceText guifg=red guibg=white ]]
-            -- vim.api.nvim_command [[ highlight LspReferenceWrite guifg=red guibg=white ]]
-            -- vim.api.nvim_command [[ highlight LspReferenceRead guifg=red guibg=white ]]
-        end
+            require("illuminate").configure({
+                filetypes_denylist = {
+                },
+            })
+        end,
     },
 
     -- jump to word indictors
     { "jinh0/eyeliner.nvim",
         config = function()
+            require("eyeliner").setup({
+                highlight_on_key = true,
+                dim = true,
+            })
+
             vim.api.nvim_set_hl(0, "EyelinerPrimary", { underline = true })
             vim.api.nvim_create_autocmd("ColorScheme", {
                 pattern = {
