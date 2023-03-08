@@ -1,5 +1,6 @@
 return {
-    { "nvim-neo-tree/neo-tree.nvim",
+    {
+        "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -16,7 +17,7 @@ return {
                         hide_dotfiles = false,
                         hide_gitignored = true,
                         hide_by_name = {
-                            "node_modules"
+                            "node_modules",
                         },
                     },
                     hijack_netrw_behavior = "open_current",
@@ -25,18 +26,18 @@ return {
 
             vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
-            vim.fn.sign_define("DiagnosticSignError",
-                { text = " ", texthl = "DiagnosticSignError" })
-            vim.fn.sign_define("DiagnosticSignWarn",
-                { text = " ", texthl = "DiagnosticSignWarn" })
-            vim.fn.sign_define("DiagnosticSignInfo",
-                { text = " ", texthl = "DiagnosticSignInfo" })
-            vim.fn.sign_define("DiagnosticSignHint",
-                { text = "", texthl = "DiagnosticSignHint" })
+            vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+            vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+            vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
+            vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
 
-            vim.keymap.set("n", "<leader><Tab>", "<Cmd>Neotree toggle<CR>", { desc = "open file tree" })
-            vim.keymap.set("n", "gp", "<Cmd>Neotree reveal_force_cwd<CR>",
-                { desc = "change working directory to current file location" })
+            vim.keymap.set("n", "<leader><Tab>", "<Cmd>Neotree toggle<CR>", { desc = "Neotree: Toggle" })
+            vim.keymap.set(
+                "n",
+                "gp",
+                "<Cmd>Neotree reveal_force_cwd<CR>",
+                { desc = "Neotree: Change working directory to current file location" }
+            )
 
             -- Remap :Ex, :Sex to Neotree
             vim.cmd(":command! Ex Neotree toggle current reveal_force_cwd")
@@ -44,5 +45,5 @@ return {
         end,
     },
 
-    'christoomey/vim-tmux-navigator',
+    "christoomey/vim-tmux-navigator",
 }
