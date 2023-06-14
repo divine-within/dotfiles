@@ -1,13 +1,12 @@
 --[[
 To see what an option is set to execute :lua = vim.o.<name>
 --]]
-
 vim.opt.list = true
-vim.opt.listchars:append "space:⋅"
+vim.opt.listchars:append("space:⋅")
 
 vim.o.backup = false
 vim.o.swapfile = false
-vim.o.undodir = vim.fn.stdpath('config') .. "/undodir"
+vim.o.undodir = vim.fn.stdpath("config") .. "/undodir"
 vim.o.undofile = true
 
 vim.o.hlsearch = false
@@ -30,12 +29,10 @@ vim.o.expandtab = true
 
 vim.o.smartindent = true
 
---vim.g.mapleader = ' '
-
 vim.o.grepprg = "rg --vimgrep"
 vim.o.ignorecase = true
 vim.o.inccommand = "split"
--- vim.o.lazyredraw = true (disabled as problematic with Noice plugin)
+vim.o.lazyredraw = true
 vim.o.number = true
 vim.o.relativenumber = true
 -- vim.o.shortmess = vim.o.shortmess .. "c" -- .. is equivalent to += in vimscript
@@ -51,10 +48,26 @@ vim.o.mouse = false
 -- Treesitter folding
 vim.o.foldlevel = 3
 
+-- Termgui colors
 if vim.fn.has("termguicolors") == 1 then
-    vim.o.termguicolors = true --termgui colors
+	vim.o.termguicolors = true
 end
 
+-- WSL clipboard
+if vim.fn.has("wsl") == 1 then
+	vim.g.clipboard = {
+		name = "WslClipboard",
+		copy = {
+			["+"] = "clip.exe",
+			["*"] = "clip.exe",
+		},
+		paste = {
+			["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+			["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+		},
+		cache_enabled = 0,
+	}
+end
 --[[
 vim.o allows you to set global vim options, but not local buffer vim options.
 vim.opt has a more expansive API that can handle local and global vim options.
