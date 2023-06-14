@@ -46,14 +46,19 @@ if type -q exa
   alias lla "ll -a"
 end
 
-# Docker daemon
-# Check if it's running on WSL
+# WSL
 if [ (uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/ip') ];
+    # Docker daemon
     if service docker status 2>&1 | grep -q "is not running"; 
         wsl.exe -u root -e /usr/sbin/service docker start >/dev/null 2>&1
     end
+
+    # Clear memory - WSL2
+    #   Details: https://github.com/microsoft/WSL/issues/4166#issuecomment-628493643
+    alias drop_cache="sudo sh -c \"echo 3 >'/proc/sys/vm/drop_caches' && swapoff -a && swapon -a && printf '\n%s\n' 'Ram-cache and Swap Cleared'\""
 end
 
+# TMUX
 if status is-interactive
 and not set -q TMUX
     exec tmux new-session -A -s main
