@@ -58,5 +58,11 @@ return {
 		end,
 	},
 
+	{
+		"mbbill/undotree",
+		config = function()
+			vim.keymap.set("n", "<leader>ut", "<Cmd>UndotreeToggle<CR>", { desc = "Undotree: Toggle" })
+		end,
+	},
 	"christoomey/vim-tmux-navigator",
 }
