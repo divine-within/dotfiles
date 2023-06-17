@@ -37,19 +37,32 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		dependencies = { "williamboman/mason.nvim", "lvimuser/lsp-inlayhints.nvim" },
 		config = function()
+			require("mason").setup()
+			require("mason-lspconfig").setup()
+
+			-- TODO: Fix navic
+
 			local lspconfig = require("lspconfig")
+			--local navic = require("nvim-navic")
 
 			require("mason-lspconfig").setup_handlers({
 				-- Automatic server handler setup function
 				function(server_name)
 					lspconfig[server_name].setup({})
 				end,
+
 				-- Next, you can provide a dedicated handler for specific servers.
 				-- For example, a handler override for the `gopls`:
+				["pyright"] = function()
+					lspconfig.pyright.setup({
+						on_attach = function(client, bufnr)
+							require("illuminate").on_attach(client)
+						end,
+					})
+				end,
 				["gopls"] = function()
 					lspconfig.gopls.setup({
 						on_attach = function(client, bufnr)
-							--require("settings/shared").on_attach(client, bufnr)
 							require("lsp-inlayhints").setup({
 								inlay_hints = {
 									type_hints = {
@@ -208,7 +221,7 @@ return {
 			end, { desc = "Lspsaga: Jump to next Error" })
 
 			-- Toggle outline
-			vim.keymap.set("n", "<leader>so", "<cmd>Lspsaga outline<CR>", { desc = "Lspsaga: Toggle outline" })
+			--vim.keymap.set("n", "<leader>so", "<cmd>Lspsaga outline<CR>", { desc = "Lspsaga: Toggle outline" })
 
 			-- Hover Doc
 			-- If there is no hover doc,
