@@ -40,10 +40,10 @@ vim.o.shortmess = "filnxToOFc" -- copied default and removed `t` (long paths wer
 vim.o.showmatch = true
 vim.o.signcolumn = "auto"
 vim.o.smartcase = true
-vim.o.splitbelow = 50
+vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.wrap = false
-vim.o.mouse = false
+vim.o.mouse = ""
 
 -- Treesitter folding
 vim.o.foldlevel = 3
