@@ -55,15 +55,15 @@ return {
 
             vim.g.telescope_changed_files_base_branch = "main"
 
-            vim.keymap.set("n", "<leader>tb", "<Cmd>Telescope buffers<CR>", { desc = "Telescope: search buffers" })
+            vim.keymap.set("n", "<leader>b", "<Cmd>Telescope buffers<CR>", { desc = "Telescope: search buffers" })
             vim.keymap.set(
                 "n",
                 "<leader>tcs",
                 "<Cmd>Telescope colorscheme<CR>",
                 { desc = "Telescope: search colorschemes" }
             )
-            vim.keymap.set("n", "<leader>ttd", "<Cmd>TodoTelescope<CR>", { desc = "Telescope: search TODOs" })
-            vim.keymap.set("n", "<leader>tem", "<Cmd>Telescope emoji<CR>", { desc = "Telescope: search emojis" })
+            vim.keymap.set("n", "<leader>td", "<Cmd>TodoTelescope<CR>", { desc = "Telescope: search TODOs" })
+            vim.keymap.set("n", "<leader>te", "<Cmd>Telescope emoji<CR>", { desc = "Telescope: search emojis" })
             vim.keymap.set(
                 "n",
                 "<leader>tcmd",
@@ -82,12 +82,12 @@ return {
                 "<Cmd>Telescope changed_files<CR>",
                 { desc = "Telescope: search changed files" }
             )
-            vim.keymap.set("n", "<leader>tht", "<Cmd>Telescope help_tags<CR>", { desc = "Telescope: search help" })
+            vim.keymap.set("n", "<leader>th", "<Cmd>Telescope help_tags<CR>", { desc = "Telescope: search help" })
             vim.keymap.set("n", "<leader>tbi", "<Cmd>Telescope builtin<CR>", { desc = "Telescope: search builtins" })
             vim.keymap.set("n", "<leader>tk", "<Cmd>Telescope keymaps<CR>", { desc = "Telescope: search key mappings" })
             vim.keymap.set(
                 "n",
-                "<leader>td",
+                "<leader>d",
                 "<Cmd>Telescope diagnostics<CR>",
                 { desc = "Telescope: search lsp diagnostics" }
             )
@@ -145,7 +145,7 @@ return {
                 "<Cmd>Telescope treesitter<CR>",
                 { desc = "Telescope: search treesitter symbols" }
             ) -- similar to lsp_document_symbols but treesitter doesn't know what a 'struct' is, just that it's a 'type'.
-            vim.keymap.set("n", "<leader>tw", "<Cmd>Telescope windows<CR>", { desc = "Telescope: search windows" })
+            vim.keymap.set("n", "<leader>w", "<Cmd>Telescope windows<CR>", { desc = "Telescope: search windows" })
             vim.keymap.set("n", "<leader>x", "<Cmd>Telescope live_grep<CR>", { desc = "Telescope: search text" })
         end,
     },

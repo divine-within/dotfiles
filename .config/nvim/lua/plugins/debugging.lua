@@ -29,7 +29,7 @@ return {
             vim.keymap.set("n", "<F12>", function()
                 dap.step_out()
             end, { desc = "DAP: Step out" })
-            vim.keymap.set("n", "<Leader>b", function()
+            vim.keymap.set("n", "<Leader>tb", function()
                 dap.toggle_breakpoint()
             end, { desc = "DAP: Toggle breakpoint" })
             vim.keymap.set("n", "<Leader>lp", function()
