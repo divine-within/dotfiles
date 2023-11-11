@@ -2,7 +2,7 @@
 To see what an option is set to execute :lua = vim.o.<name>
 --]]
 vim.opt.list = true
-vim.opt.listchars:append("space:⋅")
+vim.opt.listchars = { space = "⋅", tab = "▏⋅", eol = "↵" }
 
 vim.o.backup = false
 vim.o.swapfile = false
@@ -50,7 +50,7 @@ vim.o.foldlevel = 3
 
 -- Termgui colors
 if vim.fn.has("termguicolors") == 1 then
-	vim.o.termguicolors = true
+    vim.o.termguicolors = true
 end
 
 -- Navic winbar
